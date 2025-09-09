@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H4CK3R C4LC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #00ff00;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 10px;
+            border-bottom: 1px solid #00ff00;
+            background-color: #111;
+            box-shadow: 0 0 15px #00ff00;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            text-shadow: 0 0 5px #00ff00;
+            letter-spacing: 2px;
+        }
+        
+        .header p {
+            font-size: 12px;
+            color: #008800;
+            margin-top: 5px;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            flex: 1;
+        }
+        
+        .calculator {
+            background-color: #111;
+            border: 1px solid #00ff00;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 20px #00ff00;
+            width: 300px;
+            margin: 20px 0;
+        }
+        
+        .display {
+            background-color: #000;
+            border: 1px solid #00ff00;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: right;
+            font-size: 24px;
+            min-height: 30px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            position: relative;
+        }
+        
+        .display::after {
+            content: "_";
+            animation: blink 1s step-end infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+        }
+        
+        button {
+            background-color: #222;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-radius: 3px;
+        }
+        
+        button:hover {
+            background-color: #003300;
+            box-shadow: 0 0 10px #00ff00;
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+            background-color: #004400;
+        }
+        
+        .operator {
+            background-color: #002200;
+        }
+        
+        .equals {
+            background-color: #004400;
+            grid-column: span 2;
+        }
+        
+        .clear {
+            background-color: #330000;
+        }
+        
+        .logs {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #008800;
+            height: 60px;
+            overflow-y: auto;
+            background-color: #000;
+            padding: 5px;
+            border: 1px solid #003300;
+        }
+        
+        .log-entry {
+            margin: 3px 0;
+            border-bottom: 1px dotted #003300;
+            padding-bottom: 3px;
+        }
+        
+        .ad-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 15px 0;
+        }
+        
+        .ad-label {
+            color: #008800;
+            font-size: 10px;
+            text-align: center;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        
+        .ad-unit {
+            background: #001100;
+            border: 1px solid #003300;
+            border-radius: 4px;
+            padding: 10px;
+            min-height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #007700;
+            width: 300px;
+            text-align: center;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 15px;
+            border-top: 1px solid #00ff00;
+            background-color: #111;
+            margin-top: auto;
+            font-size: 12px;
+            color: #008800;
+        }
+        
+        .glow {
+            text-shadow: 0 0 5px #00ff00;
+        }
+        
+        @media (max-width: 600px) {
+            .calculator {
+                width: 90%;
+            }
+            
+            .ad-unit {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="matrix-bg" id="matrixBg"></div>
+    
+    <div class="header">
+        <h1>H4CK3R C4LCUL4T0R v1.0</h1>
+        <p>SYSTEM SECURE | ENCRYPTION ACTIVE | READY FOR OPERATION</p>
+    </div>
+    
+    <div class="container">
+        <div class="ad-container">
+            <div>
+                <div class="ad-label">Network Access Required</div>
+                <div class="ad-unit">
+                    Adsterra Social Bar
+                    <script type='text/javascript' src='//pl27602279.revenuecpmgate.com/ea/cd/7a/eacd7a989e761b9727d6769adbde5df4.js'></script>
+                </div>
+            </div>
+        </div>
+        
+        <div class="calculator">
+            <div class="display" id="display">0</div>
+            
+            <div class="buttons">
+                <button class="clear" onclick="clearAll()">C</button>
+                <button onclick="backspace()">⌫</button>
+                <button class="operator" onclick="appendOperation('%')">%</button>
+                <button class="operator" onclick="appendOperation('/')">/</button>
+                
+                <button onclick="appendNumber('7')">7</button>
+                <button onclick="appendNumber('8')">8</button>
+                <button onclick="appendNumber('9')">9</button>
+                <button class="operator" onclick="appendOperation('*')">*</button>
+                
+                <button onclick="appendNumber('4')">4</button>
+                <button onclick="appendNumber('5')">5</button>
+                <button onclick="appendNumber('6')">6</button>
+                <button class="operator" onclick="appendOperation('-')">-</button>
+                
+                <button onclick="appendNumber('1')">1</button>
+                <button onclick="appendNumber('2')">2</button>
+                <button onclick="appendNumber('3')">3</button>
+                <button class="operator" onclick="appendOperation('+')">+</button>
+                
+                <button onclick="appendNumber('0')">0</button>
+                <button onclick="appendNumber('.')">.</button>
+                <button class="equals" onclick="calculate()">=</button>
+            </div>
+            
+            <div class="logs" id="logs">
+                <div class="log-entry">System initialized</div>
+                <div class="log-entry">Waiting for input...</div>
+            </div>
+        </div>
+        
+        <div class="ad-container">
+            <div>
+                <div class="ad-label">Secure Connection Established</div>
+                <div class="ad-unit">
+                    Popunder Ad
+                    <script type='text/javascript' src='//pl27602261.revenuecpmgate.com/cc/2f/e7/cc2fe7e6087d5b6754eb49faa822c741.js'></script>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>CONNECTION SECURE | ENCRYPTION: AES-256 | TRANSMISSION: SSL/TLS</p>
+        <p>© 2023 H4CK3R C4LC | ALL SYSTEMS OPERATIONAL</p>
+    </div>
+
+    <script>
+        let currentInput = '0';
+        let previousInput = '';
+        let operation = null;
+        let resetScreen = false;
+        
+        const display = document.getElementById('display');
+        const logs = document.getElementById('logs');
+        
+        function updateDisplay() {
+            display.textContent = currentInput;
+        }
+        
+        function appendNumber(number) {
+            if (currentInput === '0' || resetScreen) {
+                currentInput = number;
+                resetScreen = false;
+            } else {
+                currentInput += number;
+            }
+            updateDisplay();
+        }
+        
+        function appendOperation(op) {
+            if (operation !== null) calculate();
+            previousInput = currentInput;
+            operation = op;
+            resetScreen = true;
+            addLog(`Operation: ${previousInput} ${operation}`);
+        }
+        
+        function calculate() {
+            let computation;
+            const prev = parseFloat(previousInput);
+            const current = parseFloat(currentInput);
+            
+            if (isNaN(prev) || isNaN(current)) return;
+            
+            switch (operation) {
+                case '+':
+                    computation = prev + current;
+                    break;
+                case '-':
+                    computation = prev - current;
+                    break;
+                case '*':
+                    computation = prev * current;
+                    break;
+                case '/':
+                    computation = prev / current;
+                    break;
+                case '%':
+                    computation = prev % current;
+                    break;
+                default:
+                    return;
+            }
+            
+            addLog(`Computed: ${previousInput} ${operation} ${currentInput} = ${computation}`);
+            currentInput = computation.toString();
+            operation = null;
+            previousInput = '';
+            resetScreen = true;
+            updateDisplay();
+        }
+        
+        function clearAll() {
+            currentInput = '0';
+            previousInput = '';
+            operation = null;
+            resetScreen = false;
+            addLog("Display cleared");
+            updateDisplay();
+        }
+        
+        function backspace() {
+            if (currentInput.length === 1) {
+                currentInput = '0';
+            } else {
+                currentInput = currentInput.slice(0, -1);
+            }
+            updateDisplay();
+        }
+        
+        function addLog(message) {
+            const logEntry = document.createElement('div');
+            logEntry.className = 'log-entry';
+            logEntry.textContent = message;
+            logs.appendChild(logEntry);
+            logs.scrollTop = logs.scrollHeight;
+        }
+        
+        // Matrix background effect
+        function createMatrixEffect() {
+            const canvas = document.createElement('canvas');
+            canvas.className = 'matrix-bg';
+            document.body.appendChild(canvas);
+            
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const chars = "01010101abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$#@%&!?*";
+            const fontSize = 14;
+            const columns = canvas.width / fontSize;
+            
+            const drops = [];
+            for (let i = 0; i < columns; i++) {
+                drops[i] = 1;
+            }
+            
+            function draw() {
+                ctx.fillStyle = 'rgba(0, 10, 0, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                ctx.fillStyle = '#00ff00';
+                ctx.font = `${fontSize}px monospace`;
+                
+                for (let i = 0; i < drops.length; i++) {
+                    const text = chars[Math.floor(Math.random() * chars.length)];
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    
+                    drops[i]++;
+                }
+            }
+            
+            setInterval(draw, 33);
+        }
+        
+        window.onload = function() {
+            updateDisplay();
+            createMatrixEffect();
+            addLog("Ads initialized");
+        };
+    </script>
+</body>
+</html>
